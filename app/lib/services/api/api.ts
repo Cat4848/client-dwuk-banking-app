@@ -47,6 +47,12 @@ export async function putAccountStatus({
   });
 }
 
+export async function putAccountBalance(amount: number) {
+  return await axiosInstance.put("accounts/balance", {
+    amount: JSON.stringify(amount)
+  });
+}
+
 export async function postCustomer(customer: CustomerPropsWithoutID) {
   return await axiosInstance.post("customers", customer);
 }

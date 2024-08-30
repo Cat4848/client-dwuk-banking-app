@@ -42,6 +42,10 @@ export default function Accounts() {
     });
   }
 
+  function topUpBalance(amount: number){
+    
+  }
+
   return (
     <div>
       {selectedAccountsId.length > 1 ? (
