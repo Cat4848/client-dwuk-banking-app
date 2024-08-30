@@ -8,6 +8,7 @@ import CssClassGenerator from "@/app/lib/utils/CssClassGenerator/CssClassGenerat
 import { useState } from "react";
 import UpdateAccountsStatus from "../UpdateAccountsStatus/UpdateAccountsStatus";
 import Button from "@/app/lib/components/common/Button";
+import InputComponent from "@/app/lib/components/common/Input/Input";
 
 interface AccountCardProps extends AccountWithCustomer {
   onAddSelectedAccountId: (accountId: number) => void;
@@ -30,6 +31,13 @@ export default function AccountCard({
   onUpdateAccountBalance
 }: AccountCardProps) {
   const [accountSelected, setAccountSelected] = useState(false);
+  const [
+    updateAccountBalanceInputFieldVisibility,
+    setUpdateAccountBalanceInputFieldVisibility
+  ] = useState(false);
+  const [updateBalanceValue, setUpdateBalanceValue] = useState(
+    balance.toFixed(2)
+  );
 
   const dateTimeFormatter = new DateTimeFormatter();
 
@@ -73,7 +81,25 @@ export default function AccountCard({
             2
           )}`}</span>
           {accountSelected && (
-            <Button type="button" text="Top-Up" onClick={() => {}} />
+            <Button
+              type="button"
+              text={
+                updateAccountBalanceInputFieldVisibility ? "Save" : "Top-Up"
+              }
+              onClick={() =>
+                setUpdateAccountBalanceInputFieldVisibility(
+                  !updateAccountBalanceInputFieldVisibility
+                )
+              }
+            />
+          )}
+          {updateAccountBalanceInputFieldVisibility && (
+            <InputComponent
+              label="Top-Up Balance"
+              placeholder="Greater than current balance"
+              value={updateBalanceValue}
+              onChange={setUpdateBalanceValue}
+            />
           )}
         </div>
 
