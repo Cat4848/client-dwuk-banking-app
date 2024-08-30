@@ -12,6 +12,7 @@ const accountsWithCustomers = accountsWithCustomersGenerator.generate();
 const addSelectedAccountsId = jest.fn();
 const deleteSelectedAccountId = jest.fn();
 const handleUpdateAccountStatus = jest.fn();
+const handleUpdateAccountBalance = jest.fn();
 
 test.each(accountsWithCustomers)(
   "if the AccountCard component displays the data correctly",
@@ -20,7 +21,8 @@ test.each(accountsWithCustomers)(
       accountWithCustomer,
       addSelectedAccountsId,
       deleteSelectedAccountId,
-      handleUpdateAccountStatus
+      handleUpdateAccountStatus,
+      handleUpdateAccountBalance
     });
     accountCardComponentRenderer.render();
 
@@ -43,7 +45,8 @@ test.each(accountsWithCustomers)(
       accountWithCustomer,
       addSelectedAccountsId,
       deleteSelectedAccountId,
-      handleUpdateAccountStatus
+      handleUpdateAccountStatus,
+      handleUpdateAccountBalance
     });
     accountCardComponentRenderer.render();
 
@@ -70,7 +73,8 @@ test("if account status changes as required", async () => {
     accountWithCustomer,
     addSelectedAccountsId,
     deleteSelectedAccountId,
-    handleUpdateAccountStatus
+    handleUpdateAccountStatus,
+    handleUpdateAccountBalance
   });
 
   accountCardComponentRenderer.render();
