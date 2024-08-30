@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { putCustomer } from "../api/api";
+import { putAccountBalance, putCustomer } from "../api/api";
 import {
   CustomerProps,
   CustomerPropsWithoutID
@@ -61,6 +61,25 @@ export function usePutAccountsStatus() {
     },
     onSuccess: () => {
       toast.success("Account status updated successfully");
+    },
+    onSettled: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["get-accounts-with-customers"]
+      });
+    }
+  });
+}
+
+export function usePutAccountBalance() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (amount: number) => putAccountBalance(amount),
+    onError: () => {
+      toast.error("An error occurred when updating account balance");
+    },
+    onSuccess: () => {
+      toast.success("Account balance updated successfully");
     },
     onSettled: async () => {
       await queryClient.invalidateQueries({
