@@ -3,12 +3,14 @@ import { useState } from "react";
 interface InputComponentProps {
   label: string;
   placeholder?: string;
+  initialValue: string;
 }
 export default function InputComponent({
   label,
-  placeholder
+  placeholder,
+  initialValue
 }: InputComponentProps) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(initialValue);
   return (
     <div>
       <label htmlFor="input-element">{label}</label>
