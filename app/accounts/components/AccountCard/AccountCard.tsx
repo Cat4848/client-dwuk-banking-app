@@ -69,7 +69,7 @@ export default function AccountCard({
           <span className={accountStyles.balanceAmount}>{`£${balance.toFixed(
             2
           )}`}</span>
-          {accountSelected && <button>Top-Up Balance</button>}
+          {accountSelected && <button>Top-Up</button>}
         </div>
 
         <div className={accountStyles.dataContainer}>
