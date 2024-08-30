@@ -46,10 +46,10 @@ export default function Accounts() {
     });
   }
 
-  function topUpBalance(amount: number) {
+  function handleUpdateAccountBalance(amount: number) {
     putAccountBalance.mutate(amount);
   }
-  
+
   return (
     <div>
       {selectedAccountsId.length > 1 ? (
@@ -69,6 +69,7 @@ export default function Accounts() {
             onAddSelectedAccountId={addSelectedAccountsId}
             onDeleteSelectedAccountId={deleteSelectedAccountsIs}
             onUpdateAccountStatus={updateAccountStatus}
+            onUpdateAccountBalance={handleUpdateAccountBalance}
           />
         ))}
       </div>

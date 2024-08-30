@@ -7,11 +7,13 @@ import DateTimeFormatter from "@/app/lib/utils/DateTimeFormatter/DateTimeFormatt
 import CssClassGenerator from "@/app/lib/utils/CssClassGenerator/CssClassGenerator";
 import { useState } from "react";
 import UpdateAccountsStatus from "../UpdateAccountsStatus/UpdateAccountsStatus";
+import Button from "@/app/lib/components/common/Button";
 
 interface AccountCardProps extends AccountWithCustomer {
   onAddSelectedAccountId: (accountId: number) => void;
   onDeleteSelectedAccountId: (accountId: number) => void;
   onUpdateAccountStatus: (newStatus: AccountStatus) => void;
+  onUpdateAccountBalance: (amount: number) => void;
 }
 
 export default function AccountCard({
@@ -24,7 +26,8 @@ export default function AccountCard({
   status,
   onAddSelectedAccountId,
   onDeleteSelectedAccountId,
-  onUpdateAccountStatus
+  onUpdateAccountStatus,
+  onUpdateAccountBalance
 }: AccountCardProps) {
   const [accountSelected, setAccountSelected] = useState(false);
 
@@ -69,7 +72,9 @@ export default function AccountCard({
           <span className={accountStyles.balanceAmount}>{`£${balance.toFixed(
             2
           )}`}</span>
-          {accountSelected && <button>Top-Up</button>}
+          {accountSelected && (
+            <Button type="button" text="Top-Up" onClick={() => {}} />
+          )}
         </div>
 
         <div className={accountStyles.dataContainer}>
