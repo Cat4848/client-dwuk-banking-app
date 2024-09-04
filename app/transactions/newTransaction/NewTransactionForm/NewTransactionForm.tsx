@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { NewTransactionFormSubmitValues } from "@/app/lib/definitions/transaction/types/NewTransactionFormSubmitValues";
 import styles from "../newTransaction.module.css";
 import Button from "@/app/lib/components/common/Button";
-import stylesShared from '../../../lib/styles/shared.module.css'
+import stylesShared from "../../../lib/styles/shared.module.css";
 import colours from "@/app/lib/constants/colors";
 import { AccountWithCustomer } from "@/app/lib/definitions/account/types/AccountWithCustomer";
 
@@ -79,7 +79,6 @@ export default function NewTransactionForm({
               id="amount"
               {...register("amount")}
               className={stylesShared.inputElement}
-              type="number"
             />
             <p className={stylesShared.error}>{errors.amount?.message}</p>
           </div>
