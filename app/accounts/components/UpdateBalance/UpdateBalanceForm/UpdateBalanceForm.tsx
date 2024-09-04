@@ -11,15 +11,15 @@ export default function UpdateBalanceForm({
   currentBalance,
   handleUpdateBalance
 }: UpdateBalanceForm) {
-  const { handleSubmit, register } = useForm<UpdateBalanceFormValues>();
+  const { handleSubmit, register } = useForm<UpdateBalanceFormValues>({
+    defaultValues: {
+      amount: currentBalance
+    }
+  });
   return (
     <form onSubmit={handleSubmit(handleUpdateBalance)}>
       <label htmlFor="update-balance">Top-Up Balance</label>
-      <input
-        id="update-balance"
-        defaultValue={currentBalance}
-        {...register("amount")}
-      />
+      <input id="update-balance" {...register("amount")} />
       <Button type="submit" text="Save" onClick={() => {}} />
     </form>
   );
