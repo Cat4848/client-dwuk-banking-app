@@ -52,7 +52,7 @@ export default function Accounts() {
     amount
   }: UpdateBalanceFormValues) {
     console.log("updateBalance", accountID, amount);
-    // putAccountBalance.mutate(amount);
+    putAccountBalance.mutate({ accountID: accountID, amount: amount });
   }
 
   return (
