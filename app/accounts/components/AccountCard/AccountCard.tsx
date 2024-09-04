@@ -8,7 +8,9 @@ import CssClassGenerator from "@/app/lib/utils/CssClassGenerator/CssClassGenerat
 import { useState } from "react";
 import UpdateAccountsStatus from "../UpdateAccountsStatus/UpdateAccountsStatus";
 import Button from "@/app/lib/components/common/Button";
-import InputComponent from "@/app/lib/components/common/Input/Input";
+import InputComponent from "@/app/lib/components/common/InputComponent/InputComponent";
+import { useForm } from "react-hook-form";
+import { UpdateBalanceInputElement } from "@/app/lib/components/common/InputComponent/types";
 
 interface AccountCardProps extends AccountWithCustomer {
   onAddSelectedAccountId: (accountId: number) => void;
@@ -39,6 +41,8 @@ export default function AccountCard({
     balance.toFixed(2)
   );
 
+  const { register } = useForm<UpdateBalanceInputElement>();
+
   const dateTimeFormatter = new DateTimeFormatter();
 
   const openDate = dateTimeFormatter.gbDayMonthYearLongFormat(open_date);
@@ -53,6 +57,8 @@ export default function AccountCard({
 
   const statusBubbleClassName =
     cssClassGenerator.generateStatusBubbleClass(status);
+
+  const inputName = "update-balance";
 
   return (
     <div
@@ -95,10 +101,14 @@ export default function AccountCard({
           )}
           {updateAccountBalanceInputFieldVisibility && (
             <InputComponent
+              type="number"
+              id="update-balance"
+              name="newBalance"
               label="Top-Up Balance"
               placeholder="Greater than current balance"
               value={updateBalanceValue}
-              onChange={setUpdateBalanceValue}
+              currency="£"
+              registerInput={register}
             />
           )}
         </div>

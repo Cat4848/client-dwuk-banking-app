@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import InputComponent from "../Input";
+import InputComponent from "../InputComponent";
 import userEvent from "@testing-library/user-event";
 
 test("if it handles user input correctly", async () => {
