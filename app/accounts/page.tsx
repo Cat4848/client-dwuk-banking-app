@@ -47,9 +47,12 @@ export default function Accounts() {
     });
   }
 
-  function handleUpdateAccountBalance({ amount }: UpdateBalanceFormValues) {
-    console.log("updateBalance", amount);
-    putAccountBalance.mutate(amount);
+  function handleUpdateAccountBalance({
+    accountID,
+    amount
+  }: UpdateBalanceFormValues) {
+    console.log("updateBalance", accountID, amount);
+    // putAccountBalance.mutate(amount);
   }
 
   return (

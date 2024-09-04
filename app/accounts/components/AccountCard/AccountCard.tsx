@@ -91,6 +91,7 @@ export default function AccountCard({
           )}
           {accountSelected && updateAccountBalanceInputFieldVisibility && (
             <UpdateBalanceForm
+              accountID={account_id.toString()}
               currentBalance={numberToStringWithDecimals(balance, 2)}
               handleUpdateBalance={onUpdateAccountBalance}
             />
