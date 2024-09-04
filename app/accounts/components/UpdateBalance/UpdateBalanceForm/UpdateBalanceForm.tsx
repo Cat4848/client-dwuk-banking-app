@@ -1,6 +1,7 @@
 import Button from "@/app/lib/components/common/Button";
 import { useForm } from "react-hook-form";
 import { UpdateBalanceFormValues } from "./types";
+import InputComponent from "@/app/lib/components/common/InputComponent/InputComponent";
 
 interface UpdateBalanceForm {
   currentBalance: string;
@@ -16,10 +17,15 @@ export default function UpdateBalanceForm({
       amount: currentBalance
     }
   });
+
   return (
     <form onSubmit={handleSubmit(handleUpdateBalance)}>
-      <label htmlFor="update-balance">Top-Up Balance</label>
-      <input id="update-balance" {...register("amount")} />
+      <InputComponent<UpdateBalanceFormValues>
+        id="update-balance"
+        label="Top-Up Balance"
+        name="amount"
+        registerField={register}
+      />
       <Button type="submit" text="Save" onClick={() => {}} />
     </form>
   );

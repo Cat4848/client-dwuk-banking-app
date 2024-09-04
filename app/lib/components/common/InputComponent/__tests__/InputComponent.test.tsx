@@ -13,7 +13,7 @@ interface FormValues {
 }
 
 function Wrapper() {
-  const { register } = useForm<FieldValues>({
+  const { register } = useForm<FormValues>({
     defaultValues: {
       amount: balanceInitialValue
     }

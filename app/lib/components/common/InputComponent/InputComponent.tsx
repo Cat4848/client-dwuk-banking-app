@@ -1,18 +1,19 @@
 import { UseFormRegister, FieldValues } from "react-hook-form";
+import { Path } from "react-hook-form";
 
-interface InputComponentProps {
+export interface InputComponentProps<T extends FieldValues> {
   id: string;
   label: string;
-  name: string;
-  registerField: UseFormRegister<FieldValues>;
+  name: Path<T>;
+  registerField: UseFormRegister<T>;
 }
 
-export default function InputComponent({
+export default function InputComponent<T extends FieldValues>({
   id,
   label,
   name,
   registerField
-}: InputComponentProps) {
+}: InputComponentProps<T>) {
   return (
     <div>
       <label htmlFor={id}>{label}</label>
