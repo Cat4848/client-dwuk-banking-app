@@ -59,6 +59,7 @@ export default function AccountCard({
       className={accountStyles.accountCard}
       onClick={() => {
         setAccountSelected(!accountSelected);
+        setUpdateAccountBalanceInputFieldVisibility(false);
         if (!accountSelected) {
           onAddSelectedAccountId(account_id);
         } else {
@@ -88,7 +89,7 @@ export default function AccountCard({
               onClick={() => setUpdateAccountBalanceInputFieldVisibility(true)}
             />
           )}
-          {updateAccountBalanceInputFieldVisibility && (
+          {accountSelected && updateAccountBalanceInputFieldVisibility && (
             <UpdateBalanceForm
               currentBalance={numberToStringWithDecimals(balance, 2)}
               handleUpdateBalance={onUpdateAccountBalance}
