@@ -17,7 +17,11 @@ export default function InputComponent<T extends FieldValues>({
   return (
     <div>
       <label htmlFor={id}>{label}</label>
-      <input id={id} {...registerField(name)} />
+      <input
+        id={id}
+        {...registerField(name)}
+        onClick={(e) => e.stopPropagation()}
+      />
     </div>
   );
 }
