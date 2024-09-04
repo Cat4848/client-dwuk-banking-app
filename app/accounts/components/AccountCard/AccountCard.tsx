@@ -8,15 +8,15 @@ import CssClassGenerator from "@/app/lib/utils/CssClassGenerator/CssClassGenerat
 import { useState } from "react";
 import UpdateAccountsStatus from "../UpdateAccountsStatus/UpdateAccountsStatus";
 import Button from "@/app/lib/components/common/Button";
-import InputComponent from "@/app/lib/components/common/InputComponent/InputComponent";
-import { useForm } from "react-hook-form";
-import { UpdateBalanceInputElement } from "@/app/lib/components/common/InputComponent/types";
+import UpdateBalanceForm from "../UpdateBalance/UpdateBalanceForm/UpdateBalanceForm";
+import numberToStringWithDecimals from "@/app/lib/utils/balances/numberToStringWithDecimals";
+import { UpdateBalanceFormValues } from "../UpdateBalance/UpdateBalanceForm/types";
 
 interface AccountCardProps extends AccountWithCustomer {
   onAddSelectedAccountId: (accountId: number) => void;
   onDeleteSelectedAccountId: (accountId: number) => void;
   onUpdateAccountStatus: (newStatus: AccountStatus) => void;
-  onUpdateAccountBalance: (amount: number) => void;
+  onUpdateAccountBalance: ({ amount }: UpdateBalanceFormValues) => void;
 }
 
 export default function AccountCard({
@@ -38,10 +38,8 @@ export default function AccountCard({
     setUpdateAccountBalanceInputFieldVisibility
   ] = useState(false);
   const [updateBalanceValue, setUpdateBalanceValue] = useState(
-    balance.toFixed(2)
+    numberToStringWithDecimals(balance, 2)
   );
-
-  const { register } = useForm<UpdateBalanceInputElement>();
 
   const dateTimeFormatter = new DateTimeFormatter();
 
@@ -83,9 +81,9 @@ export default function AccountCard({
       <div>
         <div className={accountStyles.dataContainer}>
           {"Balance:"}{" "}
-          <span className={accountStyles.balanceAmount}>{`£${balance.toFixed(
-            2
-          )}`}</span>
+          <span
+            className={accountStyles.balanceAmount}
+          >{`£${numberToStringWithDecimals(balance, 2)}`}</span>
           {accountSelected && (
             <Button
               type="button"
@@ -100,15 +98,9 @@ export default function AccountCard({
             />
           )}
           {updateAccountBalanceInputFieldVisibility && (
-            <InputComponent
-              type="number"
-              id="update-balance"
-              name="newBalance"
-              label="Top-Up Balance"
-              placeholder="Greater than current balance"
-              value={updateBalanceValue}
-              currency="£"
-              registerInput={register}
+            <UpdateBalanceForm
+              currentBalance={numberToStringWithDecimals(balance, 2)}
+              handleUpdateBalance={onUpdateAccountBalance}
             />
           )}
         </div>

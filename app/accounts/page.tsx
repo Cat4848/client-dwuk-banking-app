@@ -11,6 +11,7 @@ import {
   usePutAccountBalance,
   usePutAccountsStatus
 } from "../lib/services/mutations/mutations";
+import { UpdateBalanceFormValues } from "./components/UpdateBalance/UpdateBalanceForm/types";
 
 export default function Accounts() {
   const accountsWithCustomers = useAccountsWithCustomers();
@@ -46,7 +47,7 @@ export default function Accounts() {
     });
   }
 
-  function handleUpdateAccountBalance(amount: number) {
+  function handleUpdateAccountBalance({ amount }: UpdateBalanceFormValues) {
     putAccountBalance.mutate(amount);
   }
 

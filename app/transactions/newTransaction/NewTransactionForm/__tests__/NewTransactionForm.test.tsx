@@ -54,6 +54,8 @@ test.each(accountsWithCustomersAndTransactions)(
       /amount/i
     ) as HTMLInputElement;
     await user.type(transactionAmountElement, stringTransactionAmount);
-    expect(transactionAmountElement).toHaveValue(stringTransactionAmount);
+    expect(transactionAmountElement).toHaveValue(
+      Number(stringTransactionAmount)
+    );
   }
 );
