@@ -79,6 +79,7 @@ export default function NewTransactionForm({
               id="amount"
               {...register("amount")}
               className={stylesShared.inputElement}
+              type="number"
             />
             <p className={stylesShared.error}>{errors.amount?.message}</p>
           </div>
