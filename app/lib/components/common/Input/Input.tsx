@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 interface InputComponentProps {
   label: string;
   placeholder?: string;
