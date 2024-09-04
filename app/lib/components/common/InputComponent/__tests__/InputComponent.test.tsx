@@ -1,26 +1,26 @@
 import { render, screen } from "@testing-library/react";
 import InputComponent from "../InputComponent";
-import { useForm, FieldValues } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import userEvent from "@testing-library/user-event";
+
+interface FormFields {
+  amount: string;
+}
 
 const label = "Top-Up Balance";
 const balanceInitialValue = "300.56";
 const name = "amount";
 const newBalance = "556.79";
 
-interface FormValues {
-  amount: string;
-}
-
 function Wrapper() {
-  const { register } = useForm<FormValues>({
+  const { register } = useForm<FormFields>({
     defaultValues: {
       amount: balanceInitialValue
     }
   });
 
   return (
-    <InputComponent
+    <InputComponent<FormFields>
       id="update-balance"
       label={label}
       name={name}
@@ -37,7 +37,6 @@ test("if input component updates input", async () => {
   const user = userEvent.setup();
 
   await user.clear(inputField);
-
   await user.type(inputField, newBalance);
 
   expect(inputField).toHaveValue(newBalance);
