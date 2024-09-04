@@ -48,6 +48,7 @@ export default function Accounts() {
   }
 
   function handleUpdateAccountBalance({ amount }: UpdateBalanceFormValues) {
+    console.log("updateBalance", amount);
     putAccountBalance.mutate(amount);
   }
 

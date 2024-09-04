@@ -37,9 +37,6 @@ export default function AccountCard({
     updateAccountBalanceInputFieldVisibility,
     setUpdateAccountBalanceInputFieldVisibility
   ] = useState(false);
-  const [updateBalanceValue, setUpdateBalanceValue] = useState(
-    numberToStringWithDecimals(balance, 2)
-  );
 
   const dateTimeFormatter = new DateTimeFormatter();
 
@@ -55,8 +52,6 @@ export default function AccountCard({
 
   const statusBubbleClassName =
     cssClassGenerator.generateStatusBubbleClass(status);
-
-  const inputName = "update-balance";
 
   return (
     <div
@@ -84,17 +79,13 @@ export default function AccountCard({
           <span
             className={accountStyles.balanceAmount}
           >{`£${numberToStringWithDecimals(balance, 2)}`}</span>
-          {accountSelected && (
+          {accountSelected && !updateAccountBalanceInputFieldVisibility && (
             <Button
               type="button"
               text={
                 updateAccountBalanceInputFieldVisibility ? "Save" : "Top-Up"
               }
-              onClick={() =>
-                setUpdateAccountBalanceInputFieldVisibility(
-                  !updateAccountBalanceInputFieldVisibility
-                )
-              }
+              onClick={() => setUpdateAccountBalanceInputFieldVisibility(true)}
             />
           )}
           {updateAccountBalanceInputFieldVisibility && (

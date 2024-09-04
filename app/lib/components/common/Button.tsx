@@ -111,7 +111,14 @@ export default function Button({
     <StyledButton
       aria-disabled={disabled}
       type={type}
-      onClick={disabled ? () => {} : onClick}
+      onClick={
+        disabled
+          ? () => {}
+          : (e) => {
+              onClick();
+              e.stopPropagation();
+            }
+      }
       $disabled={disabled}
       $primary={primary}
       $secondary={secondary}
