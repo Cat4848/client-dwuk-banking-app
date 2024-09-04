@@ -74,7 +74,7 @@ export function usePutAccountBalance() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (amount: number) => putAccountBalance(amount),
+    mutationFn: (amount: string) => putAccountBalance(amount),
     onError: () => {
       toast.error("An error occurred when updating account balance");
     },

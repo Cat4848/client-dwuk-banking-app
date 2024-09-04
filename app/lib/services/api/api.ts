@@ -47,7 +47,7 @@ export async function putAccountStatus({
   });
 }
 
-export async function putAccountBalance(amount: number) {
+export async function putAccountBalance(amount: string) {
   return await axiosInstance.put("accounts/balance", {
     amount: JSON.stringify(amount)
   });

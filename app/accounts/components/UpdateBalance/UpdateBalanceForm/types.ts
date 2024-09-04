@@ -1,3 +1,3 @@
 export interface UpdateBalanceFormValues {
-  amount: number;
+  amount: string;
 }
