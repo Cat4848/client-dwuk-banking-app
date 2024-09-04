@@ -1,3 +1,5 @@
+import styles from "./styles/input.module.css";
+
 interface InputComponentProps {
   label: string;
   placeholder?: string;
@@ -11,14 +13,17 @@ export default function InputComponent({
   onChange
 }: InputComponentProps) {
   return (
-    <div>
+    <div className={styles.inputContainer}>
       <label htmlFor="input-element">{label}</label>
-      <input
-        id="input-element"
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      />
+      <div>
+        <span>£</span>{" "}
+        <input
+          id="input-element"
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      </div>
     </div>
   );
 }
