@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { mobile } from "../../constants/devices";
 
 const StyledButton = styled.button<{
   $disabled: boolean;
@@ -18,6 +19,7 @@ const StyledButton = styled.button<{
   &:hover {
     box-shadow: 0 0 0.5rem ${(props) => props.$primaryColor};
   }
+  ${mobile("padding: 0.3em 0.6em;")}
   ${(props) =>
     props.$primary &&
     css`
