@@ -87,27 +87,34 @@ export default function AccountCard({
         <div
           className={`${accountStyles.dataContainer} ${accountStyles.balanceContainer}`}
         >
-          <div>
-            {"Balance:"}{" "}
-            <span
-              className={accountStyles.balanceAmount}
-            >{`£${numberToStringWithDecimals(balance, 2)}`}</span>
+          <div className={accountStyles.balanceAmountAndTopUpButton}>
+            <div>
+              {"Balance:"}{" "}
+              <span
+                className={accountStyles.balanceAmount}
+              >{`£${numberToStringWithDecimals(balance, 2)}`}</span>
+            </div>
+
+            <div>
+              {accountSelected && !updateBalanceInputFieldVisibility && (
+                <Button
+                  type="button"
+                  text={updateBalanceInputFieldVisibility ? "Save" : "Top-Up"}
+                  onClick={() => setUpdateBalanceInputFieldVisibility(true)}
+                />
+              )}
+            </div>
           </div>
-          
-          {accountSelected && !updateBalanceInputFieldVisibility && (
-            <Button
-              type="button"
-              text={updateBalanceInputFieldVisibility ? "Save" : "Top-Up"}
-              onClick={() => setUpdateBalanceInputFieldVisibility(true)}
-            />
-          )}
-          {accountSelected && updateBalanceInputFieldVisibility && (
-            <UpdateBalanceForm
-              accountID={account_id.toString()}
-              currentBalance={numberToStringWithDecimals(balance, 2)}
-              onUpdateBalance={handleUpdateBalance}
-            />
-          )}
+
+          <div>
+            {accountSelected && updateBalanceInputFieldVisibility && (
+              <UpdateBalanceForm
+                accountID={account_id.toString()}
+                currentBalance={numberToStringWithDecimals(balance, 2)}
+                onUpdateBalance={handleUpdateBalance}
+              />
+            )}
+          </div>
         </div>
 
         <div className={accountStyles.dataContainer}>

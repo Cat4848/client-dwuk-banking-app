@@ -60,10 +60,20 @@
 
 .balanceContainer {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.balanceAmountAndTopUpButton {
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
   min-height: 8vh;
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+  }
 }
 
 .balanceAmount {
