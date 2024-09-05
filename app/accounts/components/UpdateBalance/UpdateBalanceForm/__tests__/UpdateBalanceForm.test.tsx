@@ -16,7 +16,7 @@ const accountsAndBalances = Array.from({ length: 10 }, () => {
   const accountAndBalance: AccountAndBalance = {
     accountID: some.integer({ min: 1, max: 3200 }).toString(),
     currentBalance: some.floating({ min: 1, max: 20000, fixed: 2 }).toString(),
-    newBalance: some.floating({ min: 1, max: 20000, fixed: 2 }).toString()
+    newBalance: some.floating({ min: 20001, max: 40000, fixed: 2 }).toString()
   };
   return accountAndBalance;
 });
@@ -49,7 +49,8 @@ test.each(accountsAndBalances)(
 
     expect(handleSubmit.mock.calls[0][0]).toStrictEqual({
       accountID: accountAndBalance.accountID,
-      amount: accountAndBalance.newBalance
+      amount: accountAndBalance.newBalance,
+      initialAmount: accountAndBalance.currentBalance
     });
   }
 );

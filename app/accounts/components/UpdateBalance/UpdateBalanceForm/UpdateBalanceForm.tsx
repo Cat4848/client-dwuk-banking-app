@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { UpdateBalanceFormValues } from "./types";
 import InputComponent from "@/app/lib/components/common/InputComponent/InputComponent";
 import sharedStyles from "../../../../lib/styles/shared.module.css";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { updateBalanceSchema } from "@/app/lib/schemas/updateBalanceSchema";
 
 interface UpdateBalanceForm {
   accountID: string;
@@ -15,11 +17,17 @@ export default function UpdateBalanceForm({
   currentBalance,
   onUpdateBalance
 }: UpdateBalanceForm) {
-  const { handleSubmit, register } = useForm<UpdateBalanceFormValues>({
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm<UpdateBalanceFormValues>({
     defaultValues: {
       accountID: accountID,
-      amount: currentBalance
-    }
+      amount: currentBalance,
+      initialAmount: currentBalance
+    },
+    resolver: yupResolver(updateBalanceSchema)
   });
 
   return (
@@ -30,9 +38,15 @@ export default function UpdateBalanceForm({
           label="Top-Up Balance"
           name="amount"
           registerField={register}
+          error={errors.amount}
         />
 
         <input hidden {...register("accountID")} />
+        <input
+          hidden
+          defaultValue={currentBalance}
+          {...register("initialAmount")}
+        />
         <Button type="submit" text="Save" onClick={() => {}} />
       </div>
     </form>
