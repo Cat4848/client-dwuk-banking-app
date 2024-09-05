@@ -19,6 +19,7 @@ export default function Input<T extends FieldValues>({
       {...registerField(name)}
       onClick={(e) => e.stopPropagation()}
       className={sharedStyles.inputElement}
+      data-testid={`testid-${id}`}
     />
   );
 }
