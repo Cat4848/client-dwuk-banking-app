@@ -7,6 +7,11 @@ import DateTimeFormatter from "@/app/lib/utils/DateTimeFormatter/DateTimeFormatt
 import CssClassGenerator from "@/app/lib/utils/CssClassGenerator/CssClassGenerator";
 import { useState } from "react";
 import UpdateAccountsStatus from "../UpdateAccountsStatus/UpdateAccountsStatus";
+import Button from "@/app/lib/components/common/Button";
+import UpdateBalanceForm from "../UpdateBalance/UpdateBalanceForm/UpdateBalanceForm";
+import numberToStringWithDecimals from "@/app/lib/utils/balances/numberToStringWithDecimals";
+import { UpdateBalanceFormValues } from "../UpdateBalance/UpdateBalanceForm/types";
+import { usePutAccountBalance } from "@/app/lib/services/mutations/mutations";
 
 interface AccountCardProps extends AccountWithCustomer {
   onAddSelectedAccountId: (accountId: number) => void;
@@ -27,6 +32,11 @@ export default function AccountCard({
   onUpdateAccountStatus
 }: AccountCardProps) {
   const [accountSelected, setAccountSelected] = useState(false);
+  const [
+    updateBalanceInputFieldVisibility,
+    setUpdateBalanceInputFieldVisibility
+  ] = useState(false);
+  const putAccountBalance = usePutAccountBalance();
 
   const dateTimeFormatter = new DateTimeFormatter();
 
@@ -43,12 +53,22 @@ export default function AccountCard({
   const statusBubbleClassName =
     cssClassGenerator.generateStatusBubbleClass(status);
 
+  function handleUpdateBalance({ accountID, amount }: UpdateBalanceFormValues) {
+    putAccountBalance.mutate({ accountID: accountID, amount: amount });
+    closeUpdateBalanceInputFieldVisibility();
+  }
+
+  function closeUpdateBalanceInputFieldVisibility() {
+    setUpdateBalanceInputFieldVisibility(false);
+  }
+
   return (
     <div
       data-testid={`account-card-${account_id}`}
       className={accountStyles.accountCard}
       onClick={() => {
         setAccountSelected(!accountSelected);
+        setUpdateBalanceInputFieldVisibility(false);
         if (!accountSelected) {
           onAddSelectedAccountId(account_id);
         } else {
@@ -64,12 +84,37 @@ export default function AccountCard({
       </div>
 
       <div>
-        <div className={accountStyles.dataContainer}>
-          {"Balance:"}{" "}
-          <span className={accountStyles.balanceAmount}>{`£${balance.toFixed(
-            2
-          )}`}</span>
-          {accountSelected && <button>Top-Up Balance</button>}
+        <div
+          className={`${accountStyles.dataContainer} ${accountStyles.balanceContainer}`}
+        >
+          <div className={accountStyles.balanceAmountAndTopUpButton}>
+            <div>
+              {"Balance:"}{" "}
+              <span
+                className={accountStyles.balanceAmount}
+              >{`£${numberToStringWithDecimals(balance, 2)}`}</span>
+            </div>
+
+            <div>
+              {accountSelected && !updateBalanceInputFieldVisibility && (
+                <Button
+                  type="button"
+                  text={updateBalanceInputFieldVisibility ? "Save" : "Top-Up"}
+                  onClick={() => setUpdateBalanceInputFieldVisibility(true)}
+                />
+              )}
+            </div>
+          </div>
+
+          <div>
+            {accountSelected && updateBalanceInputFieldVisibility && (
+              <UpdateBalanceForm
+                accountID={account_id.toString()}
+                currentBalance={numberToStringWithDecimals(balance, 2)}
+                onUpdateBalance={handleUpdateBalance}
+              />
+            )}
+          </div>
         </div>
 
         <div className={accountStyles.dataContainer}>

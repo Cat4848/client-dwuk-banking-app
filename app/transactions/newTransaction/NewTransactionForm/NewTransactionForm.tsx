@@ -2,9 +2,8 @@ import { transactionSchema } from "@/app/lib/schemas/transactionSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { NewTransactionFormSubmitValues } from "@/app/lib/definitions/transaction/types/NewTransactionFormSubmitValues";
-import styles from "../newTransaction.module.css";
 import Button from "@/app/lib/components/common/Button";
-import stylesShared from '../../../lib/styles/shared.module.css'
+import stylesShared from "../../../lib/styles/shared.module.css";
 import colours from "@/app/lib/constants/colors";
 import { AccountWithCustomer } from "@/app/lib/definitions/account/types/AccountWithCustomer";
 
@@ -26,11 +25,11 @@ export default function NewTransactionForm({
   });
 
   return (
-    <div className={styles.formOuterContainer}>
+    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.formInnerContainer}>
-          <div className={styles.inputGroup}>
-            <label htmlFor="from_account_id" className={styles.label}>
+        <div className={stylesShared.formInnerContainer}>
+          <div className={stylesShared.inputGroup}>
+            <label htmlFor="from_account_id" className={stylesShared.label}>
               From Account
             </label>
             <select
@@ -50,8 +49,8 @@ export default function NewTransactionForm({
             </p>
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="to_account_id" className={styles.label}>
+          <div className={stylesShared.inputGroup}>
+            <label htmlFor="to_account_id" className={stylesShared.label}>
               To Account
             </label>
             <select
@@ -71,8 +70,8 @@ export default function NewTransactionForm({
             </p>
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="amount" className={styles.label}>
+          <div className={stylesShared.inputGroup}>
+            <label htmlFor="amount" className={stylesShared.label}>
               Amount
             </label>
             <input
