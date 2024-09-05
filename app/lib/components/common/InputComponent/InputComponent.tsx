@@ -16,12 +16,15 @@ export default function InputComponent<T extends FieldValues>({
   registerField
 }: InputComponentProps<T>) {
   return (
-    <div>
-      <label htmlFor={id}>{label}</label>
+    <div className={sharedStyles.inputGroup}>
+      <label htmlFor={id} className={sharedStyles.label}>
+        {label}
+      </label>
       <input
         id={id}
         {...registerField(name)}
         onClick={(e) => e.stopPropagation()}
+        className={sharedStyles.inputElement}
       />
     </div>
   );
