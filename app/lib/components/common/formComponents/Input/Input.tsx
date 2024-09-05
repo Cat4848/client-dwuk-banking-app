@@ -5,7 +5,7 @@ interface Input<T extends FieldValues> {
   id: string;
   name: Path<T>;
   registerField: UseFormRegister<T>;
-  className: string;
+  className?: string;
 }
 
 export default function Input<T extends FieldValues>({
