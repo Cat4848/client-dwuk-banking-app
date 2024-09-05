@@ -26,6 +26,7 @@ const someStrings = Array.from({ length: 10 }, () => {
 
 test.each(someStrings)("if input changes value correctly", async (string) => {
   render(<Wrapper />);
+  
   const inputElement = screen.getByTestId(
     `testid-${accountID}`
   ) as HTMLInputElement;
