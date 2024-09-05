@@ -51,7 +51,6 @@ export default function Accounts() {
     accountID,
     amount
   }: UpdateBalanceFormValues) {
-    console.log("updateBalance", accountID, amount);
     putAccountBalance.mutate({ accountID: accountID, amount: amount });
   }
 

@@ -11,6 +11,7 @@ import { NewTransactionFormSubmitValues } from "../../definitions/transaction/ty
 import { postTransaction } from "../api/api";
 import { putAccountStatus } from "../api/api";
 import PutAccountStatus from "../../definitions/account/types/PutAccountStatus";
+import PutAccountBalance from "../../definitions/account/types/PutAccountBalance";
 
 export function usePutCustomer() {
   const queryClient = useQueryClient();
@@ -74,8 +75,8 @@ export function usePutAccountBalance() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ accountID, balance }) =>
-      putAccountBalance({ accountID, balance }),
+    mutationFn: ({ accountID, amount }: PutAccountBalance) =>
+      putAccountBalance({ accountID, amount }),
     onError: () => {
       toast.error("An error occurred when updating account balance");
     },

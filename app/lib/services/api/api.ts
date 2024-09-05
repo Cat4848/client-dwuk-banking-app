@@ -7,6 +7,7 @@ import { NewTransactionFormSubmitValues } from "../../definitions/transaction/ty
 import { AccountWithCustomer } from "../../definitions/account/types/AccountWithCustomer";
 import PutAccountStatus from "../../definitions/account/types/PutAccountStatus";
 import AccountStatusPathAdapter from "../../utils/AccountStatusPathAdapter/AccountStatusPathAdapter";
+import PutAccountBalance from "../../definitions/account/types/PutAccountBalance";
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 const axiosInstance = axios.create({ baseURL: baseURL });
@@ -47,10 +48,13 @@ export async function putAccountStatus({
   });
 }
 
-export async function putAccountBalance({ accountID, amount }) {
+export async function putAccountBalance({
+  accountID,
+  amount
+}: PutAccountBalance) {
   return await axiosInstance.put("accounts/balance", {
-    accountID: JSON.stringify(accountID),
-    amount: JSON.stringify(amount)
+    accountID,
+    amount
   });
 }
 
