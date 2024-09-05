@@ -1,11 +1,24 @@
-import { InputField } from "../formComponents";
+import { FieldValues, UseFormRegister } from "react-hook-form";
+import { Path } from "react-hook-form";
+import sharedStyles from "../../../../styles/shared.module.css";
 
-interface Input {
+interface Input<T extends FieldValues> {
   id: string;
-  placeholder: string;
-  value: string;
+  name: Path<T>;
+  registerField: UseFormRegister<T>;
 }
 
-export default function Input({ id, placeholder, value }: Input) {
-  return <InputField id={id} placeholder={placeholder} value={value} />;
+export default function Input<T extends FieldValues>({
+  id,
+  name,
+  registerField
+}: Input<T>) {
+  return (
+    <input
+      id={id}
+      {...registerField(name)}
+      onClick={(e) => e.stopPropagation()}
+      className={sharedStyles.inputElement}
+    />
+  );
 }
