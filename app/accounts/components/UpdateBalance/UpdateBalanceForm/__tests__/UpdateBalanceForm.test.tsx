@@ -31,5 +31,8 @@ test("if update balance form values submitted correctly", async () => {
 
   await user.click(saveButton);
 
-  expect(handleSubmit.mock.calls[0][0]).toStrictEqual({ amount: newBalance });
+  expect(handleSubmit.mock.calls[0][0]).toStrictEqual({
+    accountID: accountID,
+    amount: newBalance
+  });
 });
