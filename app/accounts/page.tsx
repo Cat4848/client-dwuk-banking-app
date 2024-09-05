@@ -7,16 +7,11 @@ import accountStyles from "./styles/accountCard.module.css";
 import { useState } from "react";
 import UpdateAccountsStatus from "./components/UpdateAccountsStatus/UpdateAccountsStatus";
 import { AccountStatus } from "../lib/definitions/account/types/AccountWithCustomer";
-import {
-  usePutAccountBalance,
-  usePutAccountsStatus
-} from "../lib/services/mutations/mutations";
-import { UpdateBalanceFormValues } from "./components/UpdateBalance/UpdateBalanceForm/types";
+import { usePutAccountsStatus } from "../lib/services/mutations/mutations";
 
 export default function Accounts() {
   const accountsWithCustomers = useAccountsWithCustomers();
   const putAccountStatusMutation = usePutAccountsStatus();
-  const putAccountBalance = usePutAccountBalance();
   const [selectedAccountsId, setSelectedAccountsId] = useState<number[]>([]);
 
   if (accountsWithCustomers.isPending) {
@@ -47,13 +42,6 @@ export default function Accounts() {
     });
   }
 
-  function handleUpdateAccountBalance({
-    accountID,
-    amount
-  }: UpdateBalanceFormValues) {
-    putAccountBalance.mutate({ accountID: accountID, amount: amount });
-  }
-
   return (
     <div>
       {selectedAccountsId.length > 1 ? (
@@ -73,7 +61,6 @@ export default function Accounts() {
             onAddSelectedAccountId={addSelectedAccountsId}
             onDeleteSelectedAccountId={deleteSelectedAccountsIs}
             onUpdateAccountStatus={updateAccountStatus}
-            onUpdateAccountBalance={handleUpdateAccountBalance}
           />
         ))}
       </div>

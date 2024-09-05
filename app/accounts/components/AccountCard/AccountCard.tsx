@@ -11,12 +11,12 @@ import Button from "@/app/lib/components/common/Button";
 import UpdateBalanceForm from "../UpdateBalance/UpdateBalanceForm/UpdateBalanceForm";
 import numberToStringWithDecimals from "@/app/lib/utils/balances/numberToStringWithDecimals";
 import { UpdateBalanceFormValues } from "../UpdateBalance/UpdateBalanceForm/types";
+import { usePutAccountBalance } from "@/app/lib/services/mutations/mutations";
 
 interface AccountCardProps extends AccountWithCustomer {
   onAddSelectedAccountId: (accountId: number) => void;
   onDeleteSelectedAccountId: (accountId: number) => void;
   onUpdateAccountStatus: (newStatus: AccountStatus) => void;
-  onUpdateAccountBalance: ({ amount }: UpdateBalanceFormValues) => void;
 }
 
 export default function AccountCard({
@@ -29,14 +29,14 @@ export default function AccountCard({
   status,
   onAddSelectedAccountId,
   onDeleteSelectedAccountId,
-  onUpdateAccountStatus,
-  onUpdateAccountBalance
+  onUpdateAccountStatus
 }: AccountCardProps) {
   const [accountSelected, setAccountSelected] = useState(false);
   const [
-    updateAccountBalanceInputFieldVisibility,
-    setUpdateAccountBalanceInputFieldVisibility
+    updateBalanceInputFieldVisibility,
+    setUpdateBalanceInputFieldVisibility
   ] = useState(false);
+  const putAccountBalance = usePutAccountBalance();
 
   const dateTimeFormatter = new DateTimeFormatter();
 
@@ -53,13 +53,22 @@ export default function AccountCard({
   const statusBubbleClassName =
     cssClassGenerator.generateStatusBubbleClass(status);
 
+  function handleUpdateBalance({ accountID, amount }: UpdateBalanceFormValues) {
+    putAccountBalance.mutate({ accountID: accountID, amount: amount });
+    closeUpdateBalanceInputFieldVisibility();
+  }
+
+  function closeUpdateBalanceInputFieldVisibility() {
+    setUpdateBalanceInputFieldVisibility(false);
+  }
+
   return (
     <div
       data-testid={`account-card-${account_id}`}
       className={accountStyles.accountCard}
       onClick={() => {
         setAccountSelected(!accountSelected);
-        setUpdateAccountBalanceInputFieldVisibility(false);
+        setUpdateBalanceInputFieldVisibility(false);
         if (!accountSelected) {
           onAddSelectedAccountId(account_id);
         } else {
@@ -80,20 +89,18 @@ export default function AccountCard({
           <span
             className={accountStyles.balanceAmount}
           >{`£${numberToStringWithDecimals(balance, 2)}`}</span>
-          {accountSelected && !updateAccountBalanceInputFieldVisibility && (
+          {accountSelected && !updateBalanceInputFieldVisibility && (
             <Button
               type="button"
-              text={
-                updateAccountBalanceInputFieldVisibility ? "Save" : "Top-Up"
-              }
-              onClick={() => setUpdateAccountBalanceInputFieldVisibility(true)}
+              text={updateBalanceInputFieldVisibility ? "Save" : "Top-Up"}
+              onClick={() => setUpdateBalanceInputFieldVisibility(true)}
             />
           )}
-          {accountSelected && updateAccountBalanceInputFieldVisibility && (
+          {accountSelected && updateBalanceInputFieldVisibility && (
             <UpdateBalanceForm
               accountID={account_id.toString()}
               currentBalance={numberToStringWithDecimals(balance, 2)}
-              handleUpdateBalance={onUpdateAccountBalance}
+              onUpdateBalance={handleUpdateBalance}
             />
           )}
         </div>

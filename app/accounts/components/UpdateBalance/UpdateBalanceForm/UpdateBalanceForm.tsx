@@ -6,13 +6,13 @@ import InputComponent from "@/app/lib/components/common/InputComponent/InputComp
 interface UpdateBalanceForm {
   accountID: string;
   currentBalance: string;
-  handleUpdateBalance: ({ accountID, amount }: UpdateBalanceFormValues) => void;
+  onUpdateBalance: ({ accountID, amount }: UpdateBalanceFormValues) => void;
 }
 
 export default function UpdateBalanceForm({
   accountID,
   currentBalance,
-  handleUpdateBalance
+  onUpdateBalance
 }: UpdateBalanceForm) {
   const { handleSubmit, register } = useForm<UpdateBalanceFormValues>({
     defaultValues: {
@@ -22,7 +22,7 @@ export default function UpdateBalanceForm({
   });
 
   return (
-    <form onSubmit={handleSubmit(handleUpdateBalance)}>
+    <form onSubmit={handleSubmit(onUpdateBalance)}>
       <InputComponent<UpdateBalanceFormValues>
         id={`update-balance-${accountID}`}
         label="Top-Up Balance"
