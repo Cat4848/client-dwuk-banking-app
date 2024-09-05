@@ -84,11 +84,16 @@ export default function AccountCard({
       </div>
 
       <div>
-        <div className={accountStyles.dataContainer}>
-          {"Balance:"}{" "}
-          <span
-            className={accountStyles.balanceAmount}
-          >{`£${numberToStringWithDecimals(balance, 2)}`}</span>
+        <div
+          className={`${accountStyles.dataContainer} ${accountStyles.balanceContainer}`}
+        >
+          <div>
+            {"Balance:"}{" "}
+            <span
+              className={accountStyles.balanceAmount}
+            >{`£${numberToStringWithDecimals(balance, 2)}`}</span>
+          </div>
+          
           {accountSelected && !updateBalanceInputFieldVisibility && (
             <Button
               type="button"

@@ -48,6 +48,14 @@
   margin-top: 0.5rem;
 }
 
+.balanceContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 8vh;
+}
+
 .balanceAmount {
   font-weight: bold;
 }
