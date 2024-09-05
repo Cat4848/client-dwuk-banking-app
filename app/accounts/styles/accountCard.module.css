@@ -4,7 +4,7 @@
   justify-content: center;
   gap: 4rem;
   margin-top: 3rem;
-  @media (max-width: var(--size-mobile)) {
+  @media screen and (max-width: 450px) {
     flex-direction: column;
     align-items: center;
   }
@@ -42,15 +42,15 @@
   border-bottom: 2px solid black;
   align-items: center;
   justify-content: center;
-  @media (max-width: var(--size-mobile)) {
-    font-size: smaller;
+  @media screen and (max-width: 450px) {
+    font-size: small;
   }
 }
 
 .dataContainer {
   text-align: center;
   margin-top: 0.5rem;
-  @media (max-width: var(--size-mobile)) {
+  @media screen and (max-width: 450px) {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
