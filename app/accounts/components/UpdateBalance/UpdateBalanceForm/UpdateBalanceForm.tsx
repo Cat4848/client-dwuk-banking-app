@@ -24,7 +24,8 @@ export default function UpdateBalanceForm({
   } = useForm<UpdateBalanceFormValues>({
     defaultValues: {
       accountID: accountID,
-      amount: currentBalance
+      amount: currentBalance,
+      initialAmount: currentBalance
     },
     resolver: yupResolver(updateBalanceSchema)
   });
@@ -41,6 +42,11 @@ export default function UpdateBalanceForm({
         />
 
         <input hidden {...register("accountID")} />
+        <input
+          hidden
+          defaultValue={currentBalance}
+          {...register("initialAmount")}
+        />
         <Button type="submit" text="Save" onClick={() => {}} />
       </div>
     </form>
