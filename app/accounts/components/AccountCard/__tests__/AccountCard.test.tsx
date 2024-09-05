@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import RandomAccountWithCustomerGenerator from "@/app/lib/tests/RandomAccountWithCustomerGenerator/RandomAccountWithCustomerGenerator";
 import AccountCardComponentRenderer from "./helpers/AccountCardComponentRenderer";
 
-const nrOfAccounts = 2;
+const nrOfAccounts = 10;
 const accountsWithCustomersGenerator = new RandomAccountWithCustomerGenerator(
   nrOfAccounts
 );
@@ -64,60 +64,64 @@ test.each(accountsWithCustomers)(
   }
 );
 
-test("if account status changes as required", async () => {
-  const accountWithCustomer = accountsWithCustomersGenerator.generateOne();
-  const accountCardComponentRenderer = new AccountCardComponentRenderer({
-    accountWithCustomer,
-    addSelectedAccountsId,
-    deleteSelectedAccountId,
-    handleUpdateAccountStatus
-  });
+test.each(accountsWithCustomers)(
+  "if account status changes as required",
+  async (accountWithCustomer) => {
+    const accountCardComponentRenderer = new AccountCardComponentRenderer({
+      accountWithCustomer,
+      addSelectedAccountsId,
+      deleteSelectedAccountId,
+      handleUpdateAccountStatus
+    });
 
-  accountCardComponentRenderer.render();
+    accountCardComponentRenderer.render();
 
-  const accountCard = screen.getByTestId(
-    `account-card-${accountWithCustomer.account_id}`
-  ) as HTMLDivElement;
+    const accountCard = screen.getByTestId(
+      `account-card-${accountWithCustomer.account_id}`
+    ) as HTMLDivElement;
 
-  const user = userEvent.setup();
+    const user = userEvent.setup();
 
-  await user.click(accountCard);
-  const activateButton = screen.getByRole("button", { name: "Activate" });
-  await user.click(activateButton);
-  expect(handleUpdateAccountStatus.mock.calls[0][0]).toBe("ACTIVE");
+    await user.click(accountCard);
+    const activateButton = screen.getByRole("button", { name: "Activate" });
+    await user.click(activateButton);
+    expect(handleUpdateAccountStatus.mock.calls[0][0]).toBe("ACTIVE");
 
-  const closeButton = screen.getByRole("button", { name: "Close" });
-  await user.click(closeButton);
-  expect(handleUpdateAccountStatus.mock.calls[1][0]).toBe("CLOSED");
+    const closeButton = screen.getByRole("button", { name: "Close" });
+    await user.click(closeButton);
+    expect(handleUpdateAccountStatus.mock.calls[1][0]).toBe("CLOSED");
 
-  const freezeButton = screen.getByRole("button", { name: "Freeze" });
-  await user.click(freezeButton);
-  expect(handleUpdateAccountStatus.mock.calls[2][0]).toBe("FROZEN");
-});
+    const freezeButton = screen.getByRole("button", { name: "Freeze" });
+    await user.click(freezeButton);
+    expect(handleUpdateAccountStatus.mock.calls[2][0]).toBe("FROZEN");
+  }
+);
 
-test("if the update balance feature works as expected", async () => {
-  const accountWithCustomer = accountsWithCustomersGenerator.generateOne();
-  const accountCardComponentRenderer = new AccountCardComponentRenderer({
-    accountWithCustomer,
-    addSelectedAccountsId,
-    deleteSelectedAccountId,
-    handleUpdateAccountStatus
-  });
+test.each(accountsWithCustomers)(
+  "if the update balance feature works as expected",
+  async (accountWithCustomer) => {
+    const accountCardComponentRenderer = new AccountCardComponentRenderer({
+      accountWithCustomer,
+      addSelectedAccountsId,
+      deleteSelectedAccountId,
+      handleUpdateAccountStatus
+    });
 
-  accountCardComponentRenderer.render();
+    accountCardComponentRenderer.render();
 
-  const accountCard = screen.getByTestId(
-    `account-card-${accountWithCustomer.account_id}`
-  ) as HTMLDivElement;
+    const accountCard = screen.getByTestId(
+      `account-card-${accountWithCustomer.account_id}`
+    ) as HTMLDivElement;
 
-  const user = userEvent.setup();
+    const user = userEvent.setup();
 
-  await user.click(accountCard);
+    await user.click(accountCard);
 
-  const topUpButton = screen.getByRole("button", { name: "Top-Up" });
-  await user.click(topUpButton);
+    const topUpButton = screen.getByRole("button", { name: "Top-Up" });
+    await user.click(topUpButton);
 
-  const balanceInput = screen.getByLabelText(
-    "Top-Up Balance"
-  ) as HTMLInputElement;
-});
+    const balanceInput = screen.getByLabelText(
+      "Top-Up Balance"
+    ) as HTMLInputElement;
+  }
+);
