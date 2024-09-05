@@ -1,5 +1,6 @@
 import { UseFormRegister, FieldValues } from "react-hook-form";
 import { Path } from "react-hook-form";
+import sharedStyles from "../../../styles/shared.module.css";
 
 export interface InputComponentProps<T extends FieldValues> {
   id: string;
