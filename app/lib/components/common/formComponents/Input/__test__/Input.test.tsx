@@ -3,6 +3,7 @@ import Input from "../Input";
 import { useForm } from "react-hook-form";
 import userEvent from "@testing-library/user-event";
 import Chance from "chance";
+import RandomTextGenerator from "@/app/lib/tests/RandomTextGenerator/RandomTextGenerator";
 
 const accountID = "6810";
 
@@ -18,15 +19,14 @@ function Wrapper() {
   );
 }
 
-const some = new Chance();
+const chance = new Chance();
+const some = new RandomTextGenerator(chance);
 
-const someStrings = Array.from({ length: 10 }, () => {
-  return some.string({ pool: "abcdefgh" });
-});
+const someWords = some.randomWords(10);
 
-test.each(someStrings)("if input changes value correctly", async (string) => {
+test.each(someWords)("if input changes value correctly", async (word) => {
   render(<Wrapper />);
-  
+
   const inputElement = screen.getByTestId(
     `testid-${accountID}`
   ) as HTMLInputElement;
