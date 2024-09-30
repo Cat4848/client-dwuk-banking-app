@@ -9,14 +9,14 @@ export default class RandomTextGenerator {
   }
 
   randomWords(count: number) {
-    if (count === 1) {
-      return this.randomWord();
-    } else if (count > 1) {
+    if (count >= 1) {
       const someStrings = Array.from({ length: count }, () => {
         return this.randomWord();
       });
       return someStrings;
-    } else return null;
+    } else {
+      throw new Error("The number or word cannot be negative.");
+    }
   }
 
   private randomWord() {
@@ -24,14 +24,14 @@ export default class RandomTextGenerator {
   }
 
   randomSentences(count: number) {
-    if (count === 1) {
-      return this.randomSentence();
-    } else if (count > 1) {
+    if (count > 1) {
       const someSentences = Array.from({ length: count }, () => {
         return this.randomSentence();
       });
       return someSentences;
-    } else return null;
+    } else {
+      throw new Error("The number of sentences cannot be negative.");
+    }
   }
 
   private randomSentence() {
