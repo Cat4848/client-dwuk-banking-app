@@ -33,7 +33,7 @@ test.each(someWords)("if input changes value correctly", async (word) => {
 
   const user = userEvent.setup();
 
-  await user.type(inputElement, string);
+  await user.type(inputElement, word);
 
-  expect(inputElement).toHaveValue(string);
+  expect(inputElement).toHaveValue(word);
 });
